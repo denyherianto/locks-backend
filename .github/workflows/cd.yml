@@ -1,0 +1,30 @@
+name: Deploy Go App
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build & Restart PM2 Service
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: root
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: |
+            git config --global url.ssh://git@github.com/.insteadOf https://github.com/
+            cd /home/service
+            git pull origin main
+            git status
+            cp .env.production .env
+            go env -w GOPRIVATE=github.com/denyherianto/go-fiber-boilerplate 
+            go get github.com/denyherianto/go-fiber-boilerplate
+            go get .
+            make build
+            pm2 restart silog-service

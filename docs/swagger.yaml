@@ -1,0 +1,751 @@
+basePath: /api
+definitions:
+  entities.Application:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        maxLength: 255
+        type: string
+      updated_at:
+        type: string
+    required:
+    - name
+    type: object
+  entities.Company:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        maxLength: 255
+        type: string
+      updated_at:
+        type: string
+    required:
+    - name
+    type: object
+  entities.ErrorLog:
+    properties:
+      activity_id:
+        type: integer
+      application_id:
+        type: integer
+      company_id:
+        type: integer
+      created_at:
+        type: string
+      description:
+        maxLength: 255
+        type: string
+      id:
+        type: integer
+      level:
+        maxLength: 50
+        type: string
+      module_id:
+        type: integer
+      updated_at:
+        type: string
+      user_id:
+        type: integer
+    required:
+    - activity_id
+    - application_id
+    - company_id
+    - level
+    - module_id
+    - user_id
+    type: object
+  entities.Module:
+    properties:
+      application:
+        $ref: '#/definitions/entities.Application'
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        maxLength: 255
+        type: string
+      updated_at:
+        type: string
+    required:
+    - name
+    type: object
+  entities.Role:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        maxLength: 255
+        type: string
+      role_permission:
+        items:
+          $ref: '#/definitions/entities.RolePermission'
+        type: array
+      slug:
+        maxLength: 255
+        type: string
+      updated_at:
+        type: string
+    required:
+    - name
+    - slug
+    type: object
+  entities.RolePermission:
+    properties:
+      create:
+        type: boolean
+      created_at:
+        type: string
+      delete:
+        type: boolean
+      id:
+        type: integer
+      module:
+        $ref: '#/definitions/entities.Module'
+      read:
+        type: boolean
+      role:
+        $ref: '#/definitions/entities.Role'
+      update:
+        type: boolean
+      updated_at:
+        type: string
+    required:
+    - create
+    - delete
+    - read
+    - update
+    type: object
+  entities.User:
+    properties:
+      created_at:
+        type: string
+      email:
+        maxLength: 255
+        type: string
+      id:
+        type: integer
+      name:
+        maxLength: 255
+        type: string
+      roles:
+        items:
+          $ref: '#/definitions/entities.UserRole'
+        type: array
+      updated_at:
+        type: string
+      user_status:
+        type: integer
+      username:
+        maxLength: 20
+        minLength: 3
+        type: string
+    required:
+    - email
+    - name
+    - user_status
+    type: object
+  entities.UserRole:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      updated_at:
+        type: string
+    type: object
+  requests.ErrorLogMeta:
+    properties:
+      limit:
+        type: integer
+      page:
+        type: integer
+      total:
+        type: integer
+      total_pages:
+        type: integer
+    type: object
+  requests.ErrorLogResponse:
+    properties:
+      data:
+        description: Data berisi array objek Item
+        items:
+          $ref: '#/definitions/entities.ErrorLog'
+        type: array
+      meta:
+        $ref: '#/definitions/requests.ErrorLogMeta'
+    type: object
+  requests.SignInResponse:
+    properties:
+      access_token:
+        type: string
+      email:
+        type: string
+      name:
+        type: string
+      refresh_token:
+        type: string
+      roles:
+        items:
+          $ref: '#/definitions/requests.UserRoleResponse'
+        type: array
+    type: object
+  requests.UserRoleResponse:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      role_name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+info:
+  contact:
+    email: your@mail.com
+    name: API Support
+  description: This is an auto-generated API Docs.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: API
+  version: "1.0"
+paths:
+  /v1/companies:
+    get:
+      consumes:
+      - application/json
+      description: Get all exists companies.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entities.Company'
+            type: array
+      summary: get all exists companies
+      tags:
+      - Companies
+    post:
+      consumes:
+      - application/json
+      description: Create a new company.
+      parameters:
+      - description: Name
+        in: body
+        name: name
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.Company'
+      security:
+      - ApiKeyAuth: []
+      summary: create a new company
+      tags:
+      - Companies
+  /v1/companies/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete company by given ID.
+      parameters:
+      - description: Company ID
+        in: body
+        name: id
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: ok
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: delete company by given ID
+      tags:
+      - Companies
+    get:
+      consumes:
+      - application/json
+      description: Get userRole by given ID.
+      parameters:
+      - description: UserRole ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.UserRole'
+      summary: get userRole by given ID
+      tags:
+      - UserRoles
+    put:
+      consumes:
+      - application/json
+      description: Update company.
+      parameters:
+      - description: Company ID
+        in: body
+        name: id
+        required: true
+        schema:
+          type: string
+      - description: Name
+        in: body
+        name: name
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "202":
+          description: ok
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: update company
+      tags:
+      - Companies
+  /v1/error-logs:
+    get:
+      consumes:
+      - application/json
+      description: Get all exists error logs.
+      parameters:
+      - description: Search query
+        in: query
+        name: search
+        type: string
+      - description: Limit query
+        in: query
+        name: limit
+        type: string
+      - description: Offset query
+        in: query
+        name: offset
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Success response
+          schema:
+            $ref: '#/definitions/requests.ErrorLogResponse'
+      summary: get all exists error logs
+      tags:
+      - ErrorLog
+    post:
+      consumes:
+      - application/json
+      description: Create a new error log.
+      parameters:
+      - description: Level
+        in: body
+        name: level
+        required: true
+        schema:
+          type: string
+      - description: ApplicationID
+        in: body
+        name: aplication_id
+        required: true
+        schema:
+          type: integer
+      - description: ModuleID
+        in: body
+        name: module_id
+        required: true
+        schema:
+          type: integer
+      - description: ActivityID
+        in: body
+        name: activity_id
+        required: true
+        schema:
+          type: integer
+      - description: UserID
+        in: body
+        name: user_id
+        schema:
+          type: string
+      - description: Description
+        in: body
+        name: description
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.ErrorLog'
+      security:
+      - ApiKeyAuth: []
+      summary: create a new error log
+      tags:
+      - ErrorLog
+  /v1/error-logs/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete error log by given ID.
+      parameters:
+      - description: ErrorLog ID
+        in: body
+        name: id
+        required: true
+        schema:
+          type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: ok
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: delete error log by given ID
+      tags:
+      - ErrorLog
+    get:
+      consumes:
+      - application/json
+      description: Get error log by given ID.
+      parameters:
+      - description: ErrorLog ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.ErrorLog'
+      summary: get error log by given ID
+      tags:
+      - ErrorLog
+  /v1/roles:
+    get:
+      consumes:
+      - application/json
+      description: Get all exists roles.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entities.Role'
+            type: array
+      summary: get all exists roles
+      tags:
+      - Roles
+    post:
+      consumes:
+      - application/json
+      description: Create a new company.
+      parameters:
+      - description: Name
+        in: body
+        name: name
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.Role'
+      security:
+      - ApiKeyAuth: []
+      summary: create a new company
+      tags:
+      - Roles
+  /v1/roles/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete company by given ID.
+      parameters:
+      - description: Role ID
+        in: body
+        name: id
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: ok
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: delete company by given ID
+      tags:
+      - Roles
+    get:
+      consumes:
+      - application/json
+      description: Get company by given ID.
+      parameters:
+      - description: Role ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.Role'
+      summary: get company by given ID
+      tags:
+      - Roles
+    put:
+      consumes:
+      - application/json
+      description: Update company.
+      parameters:
+      - description: Role ID
+        in: body
+        name: id
+        required: true
+        schema:
+          type: string
+      - description: Name
+        in: body
+        name: name
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "202":
+          description: ok
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: update company
+      tags:
+      - Roles
+  /v1/roles/assign:
+    post:
+      consumes:
+      - application/json
+      description: Assign a new Role to User.
+      parameters:
+      - description: User ID
+        in: body
+        name: user_id
+        required: true
+        schema:
+          type: string
+      - description: Role ID
+        in: body
+        name: role_id
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.UserRole'
+      security:
+      - ApiKeyAuth: []
+      summary: create a new userRole
+      tags:
+      - UserRoles
+  /v1/token/renew:
+    post:
+      consumes:
+      - application/json
+      description: Renew access and refresh tokens.
+      parameters:
+      - description: Refresh token
+        in: body
+        name: refresh_token
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/requests.SignInResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: renew access and refresh tokens
+      tags:
+      - Token
+  /v1/token/verify:
+    post:
+      consumes:
+      - application/json
+      description: Verify access token.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/requests.SignInResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: verify access token
+      tags:
+      - Token
+  /v1/user/login:
+    post:
+      consumes:
+      - application/json
+      description: Auth user and return access and refresh token.
+      parameters:
+      - description: User Email
+        in: body
+        name: email
+        required: true
+        schema:
+          type: string
+      - description: User Password
+        in: body
+        name: password
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/requests.SignInResponse'
+      summary: auth user and return access and refresh token
+      tags:
+      - User
+  /v1/user/logout:
+    post:
+      consumes:
+      - application/json
+      description: De-authorize user and delete refresh token from Redis.
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: ok
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: de-authorize user and delete refresh token from Redis
+      tags:
+      - User
+  /v1/user/register:
+    post:
+      consumes:
+      - application/json
+      description: Create a new user.
+      parameters:
+      - description: Name
+        in: body
+        name: email
+        required: true
+        schema:
+          type: string
+      - description: Email
+        in: body
+        name: email
+        required: true
+        schema:
+          type: string
+      - description: Password
+        in: body
+        name: password
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.User'
+      summary: create a new user
+      tags:
+      - User
+  /v1/users:
+    get:
+      consumes:
+      - application/json
+      description: Get all exists companies.
+      parameters:
+      - description: User IDs
+        in: path
+        name: uuids
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entities.User'
+            type: array
+      summary: get all exists companies
+      tags:
+      - Users
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
