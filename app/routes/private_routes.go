@@ -25,17 +25,19 @@ func PrivateRoutes(a *fiber.App) {
 	routeV1.Put("/companies/:id", middleware.JWTProtected(), middleware.TokenValidation, controllers.UpdateCompany)    // update Company
 	routeV1.Delete("/companies/:id", middleware.JWTProtected(), middleware.TokenValidation, controllers.DeleteCompany) // delete Company
 
-	// Routes for ErrorLogs
-	routeV1.Get("/error-logs", middleware.JWTProtected(), middleware.TokenValidation, controllers.GetErrorLogs)          // get All error logs
-	routeV1.Get("/error-logs/:id", middleware.JWTProtected(), middleware.TokenValidation, controllers.GetErrorLog)       // get ErrorLog by ID
-	routeV1.Post("/error-logs", middleware.JWTProtected(), middleware.TokenValidation, controllers.CreateErrorLog)       // create new ErrorLog
-	routeV1.Delete("/error-logs/:id", middleware.JWTProtected(), middleware.TokenValidation, controllers.DeleteErrorLog) // delete ErrorLog
+	// Routes for Keys
+	routeV1.Get("/keys", middleware.JWTProtected(), middleware.TokenValidation, controllers.GetKeys)          // get All Keys
+	routeV1.Get("/keys/:id", middleware.JWTProtected(), middleware.TokenValidation, controllers.GetKey)       // get Key by ID
+	routeV1.Post("/keys", middleware.JWTProtected(), middleware.TokenValidation, controllers.CreateKey)       // create new Key
+	routeV1.Put("/keys/:id", middleware.JWTProtected(), middleware.TokenValidation, controllers.UpdateKey)    // update Key
+	routeV1.Delete("/keys/:id", middleware.JWTProtected(), middleware.TokenValidation, controllers.DeleteKey) // delete Key
 
-	// Routes for Roles
-	routeV1.Get("/roles", middleware.JWTProtected(), middleware.TokenValidation, controllers.GetRoles)               // get All Roles
-	routeV1.Get("/roles/:id", middleware.JWTProtected(), middleware.TokenValidation, controllers.GetRole)            // get Role by ID
-	routeV1.Post("/roles", middleware.JWTProtected(), middleware.TokenValidation, controllers.CreateRole)            // create new Role
-	routeV1.Put("/roles/:id", middleware.JWTProtected(), middleware.TokenValidation, controllers.UpdateRole)         // update Role
-	routeV1.Delete("/roles/:id", middleware.JWTProtected(), middleware.TokenValidation, controllers.DeleteRole)      // delete Role
-	routeV1.Post("/roles/assign", middleware.JWTProtected(), middleware.TokenValidation, controllers.AssignUserRole) // de-authorization user
+	// Routes for KeyCopies
+	routeV1.Get("/key-copies", middleware.JWTProtected(), middleware.TokenValidation, controllers.GetKeyCopies)              // get All KeyCopies
+	routeV1.Get("/key-copies/:id", middleware.JWTProtected(), middleware.TokenValidation, controllers.GetKeyCopy)            // get KeyCopy by ID
+	routeV1.Post("/key-copies", middleware.JWTProtected(), middleware.TokenValidation, controllers.CreateKeyCopy)            // create new KeyCopy
+	routeV1.Post("/key-copies/grant", middleware.JWTProtected(), middleware.TokenValidation, controllers.GrantUserKeyCopy)   // grant UserKeyCopy
+	routeV1.Post("/key-copies/revoke", middleware.JWTProtected(), middleware.TokenValidation, controllers.RevokeUserKeyCopy) // revoke UserKeyCopy
+	routeV1.Put("/key-copies/:id", middleware.JWTProtected(), middleware.TokenValidation, controllers.UpdateKeyCopy)         // update KeyCopy
+	routeV1.Delete("/key-copies/:id", middleware.JWTProtected(), middleware.TokenValidation, controllers.DeleteKeyCopy)      // delete KeyCopy
 }

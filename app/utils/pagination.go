@@ -51,24 +51,4 @@ func Paginate(value interface{}, pagination *Pagination, db *gorm.DB) func(db *g
 	return func(db *gorm.DB) *gorm.DB { 
 			return db.Offset(pagination.GetOffset()).Limit(pagination.GetLimit()).Order(pagination.GetSort())   
 	}   
-}   
-
-// func Paginate(c *fiber.Ctx) func(db *gorm.DB) *gorm.DB {
-// 	return func(db *gorm.DB) *gorm.DB {
-// 		page, _ := strconv.Atoi(c.Query("page"))
-// 		if page <= 0 {
-// 			page = 1
-// 		}
-
-// 		pageSize, _ := strconv.Atoi(c.Query("page_size"))
-// 		switch {
-// 		case pageSize > 100:
-// 			pageSize = 100
-// 		case pageSize <= 0:
-// 			pageSize = 10
-// 		}
-
-// 		offset := (page - 1) * pageSize
-// 		return db.Offset(offset).Limit(pageSize)
-// 	}
-// }
+}

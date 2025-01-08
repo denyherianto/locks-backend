@@ -16,6 +16,6 @@ func PublicRoutes(a *fiber.App) {
 	routeV1 := a.Group("/api/v1")
 
 	// Routes for Users
-	routeV1.Post("/user/register", controllers.UserSignUp) // register a new user
-	routeV1.Post("/user/login", controllers.UserSignIn)    // auth, return Access & Refresh tokens
+	routeV1.Post("/auth/register", controllers.UserSignUp) // register a new user
+	routeV1.Post("/auth/login", controllers.UserSignIn)    // auth, return Access & Refresh tokens
 }
