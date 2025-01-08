@@ -1,6 +1,6 @@
 FROM golang:1.23.4-alpine AS builder
 
-LABEL maintainer="Vic Shóstak <vic@shostak.dev> (https://shostak.dev/)"
+LABEL maintainer="Deny Herianto <deny.hrnt@gmail.com> (https://denyherianto.com/)"
 
 # Move to working directory (/build).
 WORKDIR /build

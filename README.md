@@ -101,7 +101,7 @@ JWT_REFRESH_KEY="refresh"
 JWT_REFRESH_KEY_EXPIRE_HOURS_COUNT=720
 
 # Database settings:
-DB_HOST="cgapp-postgres"
+DB_HOST="fiber-postgres"
 DB_PORT=5432
 DB_USER="postgres"
 DB_PASSWORD="password"
@@ -112,7 +112,7 @@ DB_MAX_IDLE_CONNECTIONS=10
 DB_MAX_LIFETIME_CONNECTIONS=2
 
 # Redis settings:
-REDIS_HOST="cgapp-redis"
+REDIS_HOST="fiber-redis"
 REDIS_PORT=6379
 REDIS_PASSWORD=""
 REDIS_DB_NUMBER=0
@@ -120,4 +120,4 @@ REDIS_DB_NUMBER=0
 
 ## ⚠️ License
 
-Apache 2.0 &copy; [Vic Shóstak](https://shostak.dev/) & [True web artisans](https://1wa.co/).
+Apache 2.0 &copy; [Deny Herianto](https://denyherianto.com/).
