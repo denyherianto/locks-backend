@@ -3,7 +3,6 @@ module github.com/denyherianto/go-fiber-boilerplate
 go 1.23.4
 
 require (
-	github.com/aws/aws-sdk-go-v2/service/s3 v1.57.0
 	github.com/go-passwd/validator v0.0.0-20180902184246-0b4c967e436b
 	github.com/go-playground/validator/v10 v10.23.0
 	github.com/gofiber/contrib/jwt v1.0.10
@@ -15,7 +14,7 @@ require (
 	github.com/joho/godotenv v1.5.1
 	github.com/redis/go-redis/v9 v9.7.0
 	github.com/swaggo/swag v1.16.4
-	golang.org/x/crypto v0.31.0
+	golang.org/x/crypto v0.32.0
 	gorm.io/driver/postgres v1.5.11
 	gorm.io/gorm v1.25.12
 )
@@ -38,6 +37,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/internal/checksum v1.3.14 // indirect
 	github.com/aws/aws-sdk-go-v2/service/internal/presigned-url v1.11.14 // indirect
 	github.com/aws/aws-sdk-go-v2/service/internal/s3shared v1.17.12 // indirect
+	github.com/aws/aws-sdk-go-v2/service/s3 v1.57.0 // indirect
 	github.com/aws/aws-sdk-go-v2/service/sso v1.22.0 // indirect
 	github.com/aws/aws-sdk-go-v2/service/ssooidc v1.26.0 // indirect
 	github.com/aws/aws-sdk-go-v2/service/sts v1.30.0 // indirect
@@ -74,7 +74,7 @@ require (
 	github.com/valyala/tcplisten v1.0.0 // indirect
 	golang.org/x/net v0.26.0 // indirect
 	golang.org/x/sync v0.10.0 // indirect
-	golang.org/x/sys v0.28.0 // indirect
+	golang.org/x/sys v0.29.0 // indirect
 	golang.org/x/text v0.21.0 // indirect
 	golang.org/x/tools v0.22.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
