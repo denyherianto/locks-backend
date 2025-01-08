@@ -19,5 +19,8 @@ func main() {
 		&entities.UserRole{},
 		&entities.Activity{},
 		&entities.ErrorLog{},
+		&entities.Key{},
+		&entities.KeyCopy{},
+		&entities.UserKeyCopy{},
 	)
 }
