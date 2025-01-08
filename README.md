@@ -9,8 +9,8 @@
 
    ```
    sudo -i -u postgres psql
-   CREATE DATABASE go_fiber_boilerplate;
-   GRANT ALL PRIVILEGES ON DATABASE go_fiber_boilerplate TO postgres;
+   CREATE DATABASE locks_backend;
+   GRANT ALL PRIVILEGES ON DATABASE locks_backend TO postgres;
    \q
    ``` 
 
